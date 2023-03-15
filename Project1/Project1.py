@@ -1,6 +1,7 @@
 # Redhwan Ahmed
-# COMP 467
 # Project 1
+# Professor Chaja - COMP 467
+
 
 import argparse
 import sys
