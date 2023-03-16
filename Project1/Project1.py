@@ -2,7 +2,6 @@
 # Project 1
 # Professor Chaja - COMP 467
 
-
 import argparse
 import sys
 import csv
@@ -152,18 +151,25 @@ baselight_export_frames = bef_new;
 
 output = [];
 counter = 0;
-   
-    # for numbers in baselight_export_frames:
-print(str(output))
+for i, paths in enumerate(baselight_export_locations):
+    for j, frame_ranges in enumerate(baselight_export_frames[i]):
+        output.append(','.join(paths + [frame_ranges]))
+
+for i in range(0, len(output)):
+    output[i] = output[i].split(",")
+
+
 
 # Create the CSV writer
-# csv_out = open("output.csv", "w")
-# writer = csv.writer(csv_out)
+csv_out = open("output.csv", "w")
+writer = csv.writer(csv_out)
 
-# # Write the user details into the row.
-# writer.writerow(xytech_user_details);
-# for i in range (0, 2):
-#     writer.writerow("");
+# Write the user details into the row.
+writer.writerow(xytech_user_details);
+for i in range (0, 2):
+    writer.writerow("");
+for line in output:
+    writer.writerow(line);
 
 
 # for i in range(0, len(baselight_export)):
