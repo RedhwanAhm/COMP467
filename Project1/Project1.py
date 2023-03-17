@@ -2,10 +2,11 @@
 # Project 1
 # Professor Chaja - COMP 467
 
-import argparse
+import os
 import sys
 import csv
 
+# This function removes '/' from the inputs given
 def slash_remover(list):
     result_list = []
     for i in range(0, len(list)):
@@ -14,41 +15,39 @@ def slash_remover(list):
             result_list[i].remove("");
     return result_list;
 
+# This function removes backslashes in a list, where they show up as elements.
 def list_backslash_n_remover(list):
     result_list = [];
     for i in range(0, len(list)):
         result_list.append(list[i].replace("\n", ""))
     return result_list
 
+# This function removes the '\n' from the lines passed to it.
 def backslash_n_remover(line):
     result = line.replace("\n", "")
     result = result.strip();
     result = result.split();
     return result
 
+# Step 1: Import the two text files to be parsed. Using validation as well.
+input1 = "Xytech.txt"
+input2 = "Baselight_export.txt"
 
-# #Parse arguments for job
-# parser = argparse.ArgumentParser()
-# parser.add_argument("--job", dest="jobFolder", help="job to process")
-# parser.add_argument("--verbose", action="store_true", help="show verbose")
-# parser.add_argument("--TC", dest="timecode", help="Timecode to process")
+# Check if Xytech.txt exists.
+if not os.path.isfile(input1):
+    print(f"{input1} does not exist")
+    exit()
 
-# args = parser.parse_args()
+# Check if 
+if not os.path.isfile(input2):
+    print(f"{input2} does not exist")
+    exit()
 
-# if args.jobFolder is None:
-#     print("No job selected")
-#     sys.exit(2)
-# else:
-#     job = args.jobFolder
+with open(input1, "r") as input1:
+    xytech = input1.readlines()
 
-# if args.timecode:
-#     timecodeTC = args.timecode
-
-# Step 1: Import the two text files to be parsed.
-input1 = open("Xytech.txt", "r")
-input2 = open("Baselight_export.txt", "r")
-xytech = input1.readlines()
-baselight_export = input2.readlines()
+with open(input2, "r") as input2:
+    baselight_export = input2.readlines()
 
 # Close the above input files.
 input1.close() 
@@ -158,27 +157,15 @@ for i, paths in enumerate(baselight_export_locations):
 for i in range(0, len(output)):
     output[i] = output[i].split(",")
 
-
+# Step 5: Output to the CSV File.
 
 # Create the CSV writer
-csv_out = open("output.csv", "w")
+csv_out = open("output.csv", "w", newline="", encoding="utf-8")
 writer = csv.writer(csv_out)
 
 # Write the user details into the row.
-writer.writerow(xytech_user_details);
+writer.writerow(xytech_user_details)
 for i in range (0, 2):
-    writer.writerow("");
+    writer.writerow("")
 for line in output:
-    writer.writerow(line);
-
-
-# for i in range(0, len(baselight_export)):
-#     print(str(baselight_export_locations[i]))
-#     print(str(baselight_export_frames[i]))
-# ## DEBUG ##
-# print("Location: "+str(LocationIndex))
-# print("Notes: "+str(NotesIndex))
-# Match Baselight_export to Xytech Location
-# ## DEBUG ##
-# print(str(baselight_export[1].split("/")));
-# print(str(xytech[5].split("/")));
+    writer.writerow(line)
