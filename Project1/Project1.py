@@ -3,7 +3,6 @@
 # Professor Chaja - COMP 467
 
 import os
-import sys
 import csv
 
 # This function removes '/' from the inputs given
