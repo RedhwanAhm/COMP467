@@ -54,6 +54,19 @@ def file_name_parser(filename):
     result[len(result)-1] = result[len(result)-1].split(".")[0]
     return result
 
+def str_to_int_list(str_list):
+    return list(map(int, str_list))
+
+# Define the function
+def process_baselight_frames(baselight_export_frames):
+    # Remove newlines
+    baselight_export_frames = [backslash_n_remover(frame) for frame in baselight_export_frames]
+    # Remove '<' characters
+    baselight_export_frames = [[num for num in frame if '<' not in num] for frame in baselight_export_frames]
+    # Convert string numbers to integers
+    baselight_export_frames = [str_to_int_list(frame) for frame in baselight_export_frames]
+    return baselight_export_frames
+
 # Step 1: Import the two text files to be parsed. Using validation as well.
 
 def input_function(input1, input_list):
@@ -126,8 +139,7 @@ def input_function(input1, input_list):
     for i in range(0, len(baselight_export_frames)):
         baselight_export_frames[i] = [num for num in baselight_export_frames[i] if '<' not in num]
     # Then make all the string numbers into numbers.
-    for i in range(0, len(baselight_export_frames)):
-        baselight_export_frames[i] = list(map(int, baselight_export_frames[i]))
+    baselight_export_frames = process_baselight_frames(baselight_export_frames)
 
     # Step 3: Now we will compare the locations provided in Xytech and Baselight Export and create a new location array that has them ready for the CSV file. The reason for doing this is because baselight_export_locations has the frame numbers in ascending order with each location too, whereas xytech only has the list of locations. Thus we will replace each of the locations in baselight_export_locations with whats given to us in xytech locations.
         # ex:
@@ -173,6 +185,7 @@ def input_function(input1, input_list):
     # Set baselight_export_frames to bef_new
     baselight_export_frames = bef_new;
 
+    output = [];
     counter = 0;
     for i, paths in enumerate(baselight_export_locations):
         for j, frame_ranges in enumerate(baselight_export_frames[i]):
@@ -193,7 +206,7 @@ def input_function(input1, input_list):
         writer.writerow("")
     for line in output:
         writer.writerow(line)
-    return output
+
 file_list = args.files.split()
 input_function(args.xytech, file_list[i])
     

@@ -93,15 +93,7 @@ for i in range(0, len(baselight_export)):
 baselight_export_locations = slash_remover(baselight_export_locations);
 
 # Process the baselight_export frames.
-for i in range(0, len(baselight_export_frames)):
-    # This processes the baselight_export frames to make them individualized
-    baselight_export_frames[i] = backslash_n_remover(baselight_export_frames[i])
-# Process the baselight_export frames so that all errors and nulls are gone.
-for i in range(0, len(baselight_export_frames)):
-    baselight_export_frames[i] = [num for num in baselight_export_frames[i] if '<' not in num]
-# Then make all the string numbers into numbers.
-for i in range(0, len(baselight_export_frames)):
-    baselight_export_frames[i] = list(map(int, baselight_export_frames[i]))
+
 
 # Step 3: Now we will compare the locations provided in Xytech and Baselight Export and create a new location array that has them ready for the CSV file. The reason for doing this is because baselight_export_locations has the frame numbers in ascending order with each location too, whereas xytech only has the list of locations. Thus we will replace each of the locations in baselight_export_locations with whats given to us in xytech locations.
     # ex:
