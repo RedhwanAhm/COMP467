@@ -1,28 +1,6 @@
-# Redhwan Ahmed
-# Project 2
-# Professor Chaja - COMP 467
-
-import os
-import pymongo
+#!/usr/bin/env python
+#Place above so you don't have to call python from commandline
 import csv
-import argparse
-
-# Project 2, Step 1: Argparse Arguments
-parser = argparse.ArgumentParser(description='Handoff arguments')
-parser.add_argument('--files', help='Baselight/Flames Text files')
-parser.add_argument('--xytech', help='Xytech file input')
-parser.add_argument('--verbose', action='store_true', help='Console output on/off')
-parser.add_argument('--output', choices=['csv', 'database'], help='Output to CSV or Database')
-args = parser.parse_args()
-
-
-# Step 2: MongoDB Connection
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-
-mydb = myclient["proj2chaja"]
-
-mycol = mydb["currentuser"]
-mycol_two = mydb["location"]
 
 #Open Xytech file
 xytech_file_location = "/Users/kchaja/scripts/Xytech.txt"
@@ -80,4 +58,3 @@ for line in read_baselight_file:
             print ("%s %s" % (new_location, first))
         else:
             print ("%s %s-%s" % (new_location, first, last))
-    
